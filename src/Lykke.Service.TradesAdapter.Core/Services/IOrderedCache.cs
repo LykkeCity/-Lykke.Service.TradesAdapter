@@ -5,9 +5,9 @@ using Lykke.Service.TradesAdapter.Contract;
 
 namespace Lykke.Service.TradesAdapter.Core.Services
 {
-    public interface IOrderedCache<T> where T : IEvent 
+    public interface IOrderedCache
     {
-        Task AddAsync(T e);
-        Task<IEnumerable<T>> GetAsync(int skip, int take);
+        Task AddAsync(Trade e);
+        Task<IEnumerable<Trade>> GetAsync(int skip, int take);
     }
 }

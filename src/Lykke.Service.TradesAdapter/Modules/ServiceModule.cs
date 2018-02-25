@@ -2,10 +2,13 @@
 using System.Linq;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AzureStorage.Tables;
+using AzureStorage.Tables.Templates.Index;
 using Common;
 using Common.Log;
 using Lykke.Service.Assets.Client;
 using Lykke.Service.Assets.Client.Models;
+using Lykke.Service.TradesAdapter.AzureRepository.Trades;
 using Lykke.Service.TradesAdapter.Contract;
 using Lykke.Service.TradesAdapter.Core.Services;
 using Lykke.Service.TradesAdapter.RabbitSubscribers;
@@ -20,12 +23,14 @@ namespace Lykke.Service.TradesAdapter.Modules
     public class ServiceModule : Module
     {
         private readonly AppSettings _settings;
+        private readonly IReloadingManager<DbSettings> _dbSettingsManager;
         private readonly ILog _log;
         private readonly IServiceCollection _services;
 
-        public ServiceModule(AppSettings settings, ILog log)
+        public ServiceModule(AppSettings settings, IReloadingManager<DbSettings> dbSettingsManager, ILog log)
         {
             _settings = settings;
+            _dbSettingsManager = dbSettingsManager;
             _log = log;
 
             _services = new ServiceCollection();
@@ -55,6 +60,8 @@ namespace Lykke.Service.TradesAdapter.Modules
 
             LoadServices(builder);
 
+            LoadAzureRepositories(builder);
+
             LoadRabbitSubscribers(builder);
 
             builder.Populate(_services);
@@ -77,7 +84,7 @@ namespace Lykke.Service.TradesAdapter.Modules
                 .SingleInstance();
 
             builder.RegisterType<CacheOfCaches>()
-                .As<ICacheOfCaches<Trade>>()
+                .As<ICacheOfCaches>()
                 .SingleInstance()
                 .WithParameter(TypedParameter.From(_settings.TradesAdapterService.CacheSize));
 
@@ -87,6 +94,22 @@ namespace Lykke.Service.TradesAdapter.Modules
             
             builder.RegisterType<RabbitSubscriberHelper>()
                 .As<IRabbitSubscriberHelper>()
+                .SingleInstance();
+        }
+        
+        private void LoadAzureRepositories(ContainerBuilder builder)
+        {
+            builder.RegisterInstance(new TradesLogRepository(
+                    AzureTableStorage<TradeLogEntity>.Create(
+                        _dbSettingsManager.ConnectionString(x => x.DataConnString),
+                        TradesLogRepository.TableName,
+                        _log),
+                    AzureTableStorage<AzureIndex>.Create(
+                        _dbSettingsManager.ConnectionString(x => x.DataConnString),
+                        TradesLogRepository.TableName,
+                        _log
+                    )))
+                .As<ITradesLogRepository>()
                 .SingleInstance();
         }
 

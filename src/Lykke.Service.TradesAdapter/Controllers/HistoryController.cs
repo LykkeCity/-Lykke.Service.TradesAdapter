@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Lykke.Service.TradesAdapter.Contract;
 using Lykke.Service.TradesAdapter.Core.Services;
 using Lykke.Service.TradesAdapter.Models;
-using Lykke.Service.TradesAdapter.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lykke.Service.TradesAdapter.Controllers
@@ -16,14 +15,14 @@ namespace Lykke.Service.TradesAdapter.Controllers
         private const string InvalidTakeMessage = "Invalid take value provided";
 
         public HistoryController(
-            ICacheOfCaches<Trade> cache,
+            ICacheOfCaches cache,
             IAssetsServiceWrapperWithCache assetsServiceWrapperWithCache)
         {
             _cache = cache;
             _assetsServiceWrapperWithCache = assetsServiceWrapperWithCache;
         }
         
-        private readonly ICacheOfCaches<Trade> _cache;
+        private readonly ICacheOfCaches _cache;
         private readonly IAssetsServiceWrapperWithCache _assetsServiceWrapperWithCache;
         
         /// <summary>

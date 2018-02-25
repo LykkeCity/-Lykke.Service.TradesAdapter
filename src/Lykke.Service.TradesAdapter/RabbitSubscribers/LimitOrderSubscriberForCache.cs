@@ -17,7 +17,7 @@ namespace Lykke.Service.TradesAdapter.RabbitSubscribers
     {
         private readonly ILog _log;
         private readonly ITradesConverter _tradesConverter;
-        private readonly ICacheOfCaches<Trade> _cache;
+        private readonly ICacheOfCaches _cache;
         private readonly IRabbitSubscriberHelper _rabbitMqSubscribeHelper;
         private readonly string _connectionString;
         private readonly string _exchangeName;
@@ -25,7 +25,7 @@ namespace Lykke.Service.TradesAdapter.RabbitSubscribers
         public LimitOrdersSubscriberForCache(
             ILog log,
             ITradesConverter tradesConverter,
-            ICacheOfCaches<Trade> cache,
+            ICacheOfCaches cache,
             IRabbitSubscriberHelper rabbitMqSubscribeHelper,
             string connectionString,
             string exchangeName)

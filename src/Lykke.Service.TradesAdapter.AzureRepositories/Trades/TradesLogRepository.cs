@@ -31,10 +31,18 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
             if (trades == null || !trades.Any())
                 return;
 
-            if (await GetAsync(trades.First().Id) != null)
+            var tradesToWrite = new List<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if(await GetAsync(trade.Id) != null)
+                    tradesToWrite.Add(trade);
+            }
+            
+            if (!tradesToWrite.Any())
                 return;
             
-            var entities = trades.Select(TradeLogEntity.Create).ToArray();
+            var entities = tradesToWrite.Select(TradeLogEntity.Create).ToArray();
 
             await _tableStorage.InsertAsync(entities);
             await _idIndex.InsertAsync(entities.Select(t => AzureIndex.Create(IndexId, t.Id, t.PartitionKey, t.RowKey)));

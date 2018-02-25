@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Lykke.Service.TradesAdapter.AzureRepository.Trades;
 using Lykke.Service.TradesAdapter.Contract;
 using Lykke.Service.TradesAdapter.Core;
 using Lykke.Service.TradesAdapter.Core.Services;
@@ -9,14 +10,16 @@ using Lykke.Service.TradesAdapter.Core.Services;
 namespace Lykke.Service.TradesAdapter.Services
 {
     [UsedImplicitly]
-    public class CacheOfCaches : ICacheOfCaches<Trade>
+    public class CacheOfCaches : ICacheOfCaches
     {
-        private readonly ConcurrentDictionary<string, IOrderedCache<Trade>> _cache;
+        private readonly ConcurrentDictionary<string, IOrderedCache> _cache;
+        private readonly ITradesLogRepository _tradesLogRepository;
         private readonly int _cacheSize;
 
-        public CacheOfCaches(int cacheSize)
+        public CacheOfCaches(int cacheSize, ITradesLogRepository tradesLogRepository)
         {
-            _cache = new ConcurrentDictionary<string, IOrderedCache<Trade>>();
+            _cache = new ConcurrentDictionary<string, IOrderedCache>();
+            _tradesLogRepository = tradesLogRepository;
             _cacheSize = cacheSize;
         }
 
@@ -24,7 +27,7 @@ namespace Lykke.Service.TradesAdapter.Services
         {
             if (!_cache.TryGetValue(key, out var cachedCollection))
             {
-                cachedCollection = new OrderedCache<Trade>(_cacheSize);
+                cachedCollection = new OrderedCache(key, _cacheSize, _tradesLogRepository);
                 _cache.TryAdd(key, cachedCollection);
             }
 
@@ -35,7 +38,7 @@ namespace Lykke.Service.TradesAdapter.Services
         {
             if (!_cache.TryGetValue(key, out var cachedCollection))
             {
-                cachedCollection = new OrderedCache<Trade>(_cacheSize);
+                cachedCollection = new OrderedCache(key, _cacheSize, _tradesLogRepository);
             }
 
             return cachedCollection.GetAsync(skip, take);

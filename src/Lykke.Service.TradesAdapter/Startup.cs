@@ -57,7 +57,7 @@ namespace Lykke.Service.TradesAdapter
 
                 Log = CreateLogWithSlack(services, appSettings);
 
-                builder.RegisterModule(new ServiceModule(appSettings.CurrentValue, Log));
+                builder.RegisterModule(new ServiceModule(appSettings.CurrentValue, appSettings.Nested(x => x.TradesAdapterService.Db), Log));
                 builder.Populate(services);
                 ApplicationContainer = builder.Build();
 
