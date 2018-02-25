@@ -11,8 +11,9 @@ namespace Lykke.Service.TradesAdapter.Controllers
 {
     public class HistoryController : Controller
     {
-        private const string InvalidSkip = "Invalid skip value provided";
-        private const string InvalidTake = "Invalid take value provided";
+        private const string InvalidAssetPairIdMessage = "Invalid asset pair Id value provided";
+        private const string InvalidSkipMessage = "Invalid skip value provided";
+        private const string InvalidTakeMessage = "Invalid take value provided";
 
         public HistoryController(
             ICacheOfCaches<Trade> cache,
@@ -43,17 +44,17 @@ namespace Lykke.Service.TradesAdapter.Controllers
         {
             if (await _assetsServiceWrapperWithCache.TryGetAssetPairAsync(assetPairId) == null)
             {
-                return NotFound();
+                return BadRequest(ErrorResponse.Create(InvalidAssetPairIdMessage));
             }
 
             if (skip < 0)
             {
-                return BadRequest(ErrorResponse.Create(InvalidSkip));
+                return BadRequest(ErrorResponse.Create(InvalidSkipMessage));
             }
 
             if (take < 0)
             {
-                return BadRequest(ErrorResponse.Create(InvalidTake));
+                return BadRequest(ErrorResponse.Create(InvalidTakeMessage));
             }
 
             var data = await _cache.GetAsync(assetPairId, skip, take);
