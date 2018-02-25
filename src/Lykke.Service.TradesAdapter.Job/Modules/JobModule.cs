@@ -112,7 +112,8 @@ namespace Lykke.Service.TradesAdapter.Job.Modules
                 .As<IStartable>()
                 .AutoActivate()
                 .SingleInstance()
-                .WithParameter("connectionString", _settings.TradesAdapterJob.PublishQueueSetings.ConnectionString);
+                .WithParameter("connectionString", _settings.TradesAdapterJob.PublishQueueSetings.ConnectionString)
+                .WithParameter("exchangeName", _settings.TradesAdapterJob.PublishQueueSetings.ExchangeName);
 
             builder.RegisterType<AssetsServiceWrapperWithCache>()
                 .As<IAssetsServiceWrapperWithCache>()

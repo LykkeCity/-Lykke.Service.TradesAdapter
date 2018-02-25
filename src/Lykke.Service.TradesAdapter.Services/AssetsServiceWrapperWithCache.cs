@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using Common;
 using JetBrains.Annotations;
-using Lykke.Service.Assets.Client;
 using Lykke.Service.Assets.Client.Models;
-using Lykke.Service.TradesAdapter.Core;
 using Lykke.Service.TradesAdapter.Core.Services;
 
 namespace Lykke.Service.TradesAdapter.Services

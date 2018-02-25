@@ -17,22 +17,25 @@ namespace Lykke.Service.TradesAdapter.Job.RabbitPublishers
         private readonly ILog _log;
         private readonly IConsole _console;
         private readonly string _connectionString;
+        private readonly string _exchangeName;
         private RabbitMqPublisher<List<Trade>> _publisher;
         
         public TradesPublisher(
             ILog log,
             IConsole console,
-            string connectionString)
+            string connectionString,
+            string exchangeName)
         {
             _log = log;
             _console = console;
             _connectionString = connectionString;
+            _exchangeName = exchangeName;
         }
         
         public void Start()
         {
             var settings = RabbitMqSubscriptionSettings
-                .CreateForPublisher(_connectionString, "tradesadapter")
+                .CreateForPublisher(_connectionString, _exchangeName)
                 .MakeDurable();
             
             _publisher = new RabbitMqPublisher<List<Trade>>(settings)
