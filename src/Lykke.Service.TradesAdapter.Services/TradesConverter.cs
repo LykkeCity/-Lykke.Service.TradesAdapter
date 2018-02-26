@@ -39,7 +39,7 @@ namespace Lykke.Service.TradesAdapter.Services
                         continue;
 
                     var assetPair = await _assetsServiceWrapper.TryGetAssetPairAsync(trade.Asset, trade.OppositeAsset);
-                    var baseAsset = await _assetsServiceWrapper.TryGetAssetAsync(trade.Asset);
+                    var baseAsset = await _assetsServiceWrapper.TryGetAssetAsync(assetPair.BaseAssetId);
 
                     var volume =
                         assetPair != null
