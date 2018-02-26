@@ -35,7 +35,7 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
 
             foreach (var trade in trades)
             {
-                if(await GetAsync(trade.Id) != null)
+                if(await GetAsync(trade.Id) == null)
                     tradesToWrite.Add(trade);
             }
             
