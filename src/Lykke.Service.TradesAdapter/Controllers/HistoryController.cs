@@ -16,14 +16,14 @@ namespace Lykke.Service.TradesAdapter.Controllers
 
         public HistoryController(
             ICacheOfCaches cache,
-            IAssetsServiceWrapperWithCache assetsServiceWrapperWithCache)
+            IAssetsServiceWrapper assetsServiceWrapper)
         {
             _cache = cache;
-            _assetsServiceWrapperWithCache = assetsServiceWrapperWithCache;
+            _assetsServiceWrapper = assetsServiceWrapper;
         }
         
         private readonly ICacheOfCaches _cache;
-        private readonly IAssetsServiceWrapperWithCache _assetsServiceWrapperWithCache;
+        private readonly IAssetsServiceWrapper _assetsServiceWrapper;
         
         /// <summary>
         /// Returns latest trades based on asset pair
@@ -41,7 +41,7 @@ namespace Lykke.Service.TradesAdapter.Controllers
             [FromQuery]int skip,
             [FromQuery]int take)
         {
-            if (await _assetsServiceWrapperWithCache.TryGetAssetPairAsync(assetPairId) == null)
+            if (await _assetsServiceWrapper.TryGetAssetPairAsync(assetPairId) == null)
             {
                 return BadRequest(ErrorResponse.Create(InvalidAssetPairIdMessage));
             }

@@ -16,14 +16,14 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
         public const string TableName = "TradesAdapted";
         private const string IndexId = "IndexId";
         private readonly INoSQLTableStorage<TradeLogEntity> _tableStorage;
-        private readonly INoSQLTableStorage<AzureIndex> _idIndex;
+        private readonly INoSQLTableStorage<AzureIndex> _idIndexStorage;
 
         public TradesLogRepository(
             INoSQLTableStorage<TradeLogEntity> tableStorage,
-            INoSQLTableStorage<AzureIndex> idIndex)
+            INoSQLTableStorage<AzureIndex> idIndexStorage)
         {
             _tableStorage = tableStorage;
-            _idIndex = idIndex;
+            _idIndexStorage = idIndexStorage;
         }
         
         public async Task AddOrMergeMultipleAsync(IEnumerable<ITrade> trades)
@@ -45,7 +45,7 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
             var entities = tradesToWrite.Select(TradeLogEntity.Create).ToArray();
 
             await _tableStorage.InsertAsync(entities);
-            await _idIndex.InsertAsync(entities.Select(t => AzureIndex.Create(IndexId, t.Id, t.PartitionKey, t.RowKey)));
+            await _idIndexStorage.InsertAsync(entities.Select(t => AzureIndex.Create(IndexId, t.Id, t.PartitionKey, t.RowKey)));
         }
 
         public Task<IEnumerable<TradeLogEntity>> GetLatestAsync(string assetPairId, int n)
@@ -55,7 +55,7 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
         
         private Task<TradeLogEntity> GetAsync(string id)
         {
-            return _tableStorage.GetDataAsync(_idIndex, IndexId, id);
+            return _tableStorage.GetDataAsync(_idIndexStorage, IndexId, id);
         }
     }
 }

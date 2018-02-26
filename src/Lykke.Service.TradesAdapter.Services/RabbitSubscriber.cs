@@ -12,14 +12,14 @@ using Lykke.Service.TradesAdapter.Core.Services;
 namespace Lykke.Service.TradesAdapter.Services
 {
     [UsedImplicitly]
-    public class RabbitSubscriberHelper : IRabbitSubscriberHelper, IDisposable
+    public class RabbitSubscriber : IRabbitSubscriber, IDisposable
     {
         private readonly ConcurrentBag<RabbitSubscription> _subscriptions = new ConcurrentBag<RabbitSubscription>();
         private const string APPLICATION_NAME = "tradesadapter";
         private readonly ILog _log;
         private readonly IConsole _consoleWriter;
 
-        public RabbitSubscriberHelper(ILog log, IConsole consoleWriter)
+        public RabbitSubscriber(ILog log, IConsole consoleWriter)
         {
             _log = log;
             _consoleWriter = consoleWriter;
@@ -30,7 +30,7 @@ namespace Lykke.Service.TradesAdapter.Services
         {
             if (_subscriptions.Any(x => x.Purpose == purpose))
                 _log.WriteWarningAsync(
-                    nameof(RabbitSubscriberHelper),
+                    nameof(RabbitSubscriber),
                     nameof(Subscribe),
                     $"More than one subscriber will read for {purpose.ToString()}")
                     .GetAwaiter()

@@ -5,7 +5,7 @@ using Lykke.RabbitMqBroker.Subscriber;
 
 namespace Lykke.Service.TradesAdapter.Core.Services
 {
-    public interface IRabbitSubscriberHelper
+    public interface IRabbitSubscriber
     {
         void Subscribe<TMessage>(string connectionString, string exchangeName, SubscriptionPurpose purpose,
             IMessageDeserializer<TMessage> deserializer, Func<TMessage, Task> handler);

@@ -8,7 +8,7 @@ using Lykke.Service.TradesAdapter.Core.Services;
 namespace Lykke.Service.TradesAdapter.Services
 {
     [UsedImplicitly]
-    public class AssetsServiceWrapperWithCache : IAssetsServiceWrapperWithCache
+    public class AssetsServiceWrapperWithCache : IAssetsServiceWrapper
     {
         private readonly CachedDataDictionary<string, Asset> _assetsCache;
         private readonly CachedDataDictionary<string, AssetPair> _assetPairsCache;

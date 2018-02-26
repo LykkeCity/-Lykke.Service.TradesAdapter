@@ -89,11 +89,11 @@ namespace Lykke.Service.TradesAdapter.Modules
                 .WithParameter(TypedParameter.From(_settings.TradesAdapterService.CacheSize));
 
             builder.RegisterType<AssetsServiceWrapperWithCache>()
-                .As<IAssetsServiceWrapperWithCache>()
+                .As<IAssetsServiceWrapper>()
                 .SingleInstance();
             
-            builder.RegisterType<RabbitSubscriberHelper>()
-                .As<IRabbitSubscriberHelper>()
+            builder.RegisterType<RabbitSubscriber>()
+                .As<IRabbitSubscriber>()
                 .SingleInstance();
         }
         

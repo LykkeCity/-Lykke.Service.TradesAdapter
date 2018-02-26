@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common;
 using JetBrains.Annotations;
+using Lykke.Service.Assets.Client.Models;
 using Lykke.Service.TradesAdapter.Contract;
 using Lykke.Service.TradesAdapter.Core.IncomingMessages.LimitOrders;
 using Lykke.Service.TradesAdapter.Core.Services;
@@ -11,12 +13,12 @@ namespace Lykke.Service.TradesAdapter.Services
     [UsedImplicitly]
     public class TradesConverter : ITradesConverter
     {
-        private readonly IAssetsServiceWrapperWithCache _assetsServiceWrapperWithCache;
+        private readonly IAssetsServiceWrapper _assetsServiceWrapper;
 
         public TradesConverter(
-            IAssetsServiceWrapperWithCache assetsServiceWrapperWithCache)
+            IAssetsServiceWrapper assetsServiceWrapper)
         {
-            _assetsServiceWrapperWithCache = assetsServiceWrapperWithCache;
+            _assetsServiceWrapper = assetsServiceWrapper;
         }
         
         public async Task<List<Trade>> ConvertAsync(LimitOrders orders)
@@ -36,7 +38,8 @@ namespace Lykke.Service.TradesAdapter.Services
                     if (result.Any(x => x.Id == trade.TradeId))
                         continue;
 
-                    var assetPair = await _assetsServiceWrapperWithCache.TryGetAssetPairAsync(trade.Asset, trade.OppositeAsset);
+                    var assetPair = await _assetsServiceWrapper.TryGetAssetPairAsync(trade.Asset, trade.OppositeAsset);
+                    var baseAsset = await _assetsServiceWrapper.TryGetAssetAsync(trade.Asset);
 
                     var volume =
                         assetPair != null
@@ -68,7 +71,7 @@ namespace Lykke.Service.TradesAdapter.Services
                         DateTime = trade.Timestamp,
                         Price = trade.Price,
                         AssetPairId = assetPair?.Id,
-                        Volume = volume,
+                        Volume = volume.Normalize(baseAsset),
                         Action = action
                     });
                 }
@@ -76,7 +79,7 @@ namespace Lykke.Service.TradesAdapter.Services
 
             return result;
         }
-
+        
         private static bool MatchedWithMarketOrder(LimitOrders order)
         {
             var result = false;
@@ -91,6 +94,25 @@ namespace Lykke.Service.TradesAdapter.Services
             }
 
             return result;
+        }
+    }
+
+    public static class AmountNormalizer
+    {
+        public static double Normalize(this double amount, Asset asset)
+        {
+            int assetDisplayAccuracy;
+
+            if (asset != null)
+            {
+                assetDisplayAccuracy = asset.DisplayAccuracy ?? asset.Accuracy;
+            }
+            else
+            {
+                assetDisplayAccuracy = 2;
+            }
+            
+            return amount.TruncateDecimalPlaces(assetDisplayAccuracy);
         }
     }
 }

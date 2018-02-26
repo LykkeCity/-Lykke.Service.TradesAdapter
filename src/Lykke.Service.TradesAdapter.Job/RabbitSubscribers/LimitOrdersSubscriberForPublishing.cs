@@ -18,7 +18,7 @@ namespace Lykke.Service.TradesAdapter.Job.RabbitSubscribers
         private readonly ILog _log;
         private readonly ITradesConverter _tradesConverter;
         private readonly ITradesPublisher _tradesPublisher;
-        private readonly IRabbitSubscriberHelper _rabbitMqSubscribeHelper;
+        private readonly IRabbitSubscriber _rabbitMqSubscribe;
         private readonly string _connectionString;
         private readonly string _exchangeName;
 
@@ -26,21 +26,21 @@ namespace Lykke.Service.TradesAdapter.Job.RabbitSubscribers
             ILog log,
             ITradesConverter tradesConverter,
             ITradesPublisher tradesPublisher,
-            IRabbitSubscriberHelper rabbitMqSubscribeHelper,
+            IRabbitSubscriber rabbitMqSubscribe,
             string connectionString,
             string exchangeName)
         {
             _log = log;
             _tradesConverter = tradesConverter;
             _tradesPublisher = tradesPublisher;
-            _rabbitMqSubscribeHelper = rabbitMqSubscribeHelper;
+            _rabbitMqSubscribe = rabbitMqSubscribe;
             _connectionString = connectionString;
             _exchangeName = exchangeName;
         }
         
         public void Start()
         {
-            _rabbitMqSubscribeHelper.Subscribe(
+            _rabbitMqSubscribe.Subscribe(
                 connectionString: _connectionString,
                 exchangeName: _exchangeName,
                 purpose: SubscriptionPurpose.Publisher,

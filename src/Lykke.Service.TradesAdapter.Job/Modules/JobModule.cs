@@ -116,11 +116,11 @@ namespace Lykke.Service.TradesAdapter.Job.Modules
                 .WithParameter("exchangeName", _settings.TradesAdapterJob.PublishQueueSetings.ExchangeName);
 
             builder.RegisterType<AssetsServiceWrapperWithCache>()
-                .As<IAssetsServiceWrapperWithCache>()
+                .As<IAssetsServiceWrapper>()
                 .SingleInstance();
             
-            builder.RegisterType<RabbitSubscriberHelper>()
-                .As<IRabbitSubscriberHelper>()
+            builder.RegisterType<RabbitSubscriber>()
+                .As<IRabbitSubscriber>()
                 .SingleInstance();
         }
         
