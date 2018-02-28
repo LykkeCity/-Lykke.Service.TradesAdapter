@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Lykke.Service.TradesAdapter.Services</AssemblyName>
+    <RootNamespace>Lykke.Service.TradesAdapter.Services</RootNamespace>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Lykke.Common" Version="4.4.2" />
+    <PackageReference Include="Nito.AsyncEx.Coordination" Version="1.0.2" />
+    <PackageReference Include="Lykke.RabbitMqBroker" Version="6.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\client\Lykke.Service.TradesAdapter.Contract\Lykke.Service.TradesAdapter.Contract.csproj">
+      <Project>{FED58367-7276-49E4-88A3-55618E4E033D}</Project>
+      <Name>Lykke.Service.TradeAdapter.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lykke.Service.TradesAdapter.AzureRepositories\Lykke.Service.TradesAdapter.AzureRepositories.csproj">
+      <Project>{4BE49E02-AAAD-460B-8D00-57F412A3D181}</Project>
+      <Name>Lykke.Service.TradesAdapter.AzureRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lykke.Service.TradesAdapter.Core\Lykke.Service.TradesAdapter.Core.csproj" />
+  </ItemGroup>
+</Project>

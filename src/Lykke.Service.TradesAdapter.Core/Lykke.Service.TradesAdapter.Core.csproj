@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Lykke.Service.TradesAdapter.Core</AssemblyName>
+    <RootNamespace>Lykke.Service.TradesAdapter.Core</RootNamespace>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Lykke.Common" Version="4.4.2" />
+    <PackageReference Include="Lykke.RabbitMqBroker" Version="6.1.0" />
+    <PackageReference Include="Lykke.Service.Assets.Client" Version="3.3.1" />
+    <PackageReference Include="Lykke.SettingsReader" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\client\Lykke.Service.TradesAdapter.Contract\Lykke.Service.TradesAdapter.Contract.csproj">
+      <Project>{FED58367-7276-49E4-88A3-55618E4E033D}</Project>
+      <Name>Lykke.Service.TradeAdapter.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
