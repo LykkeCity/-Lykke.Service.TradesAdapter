@@ -5,8 +5,6 @@ using Common;
 using Common.Log;
 using JetBrains.Annotations;
 using Lykke.RabbitMqBroker.Subscriber;
-using Lykke.Service.TradesAdapter.AzureRepository.Trades;
-using Lykke.Service.TradesAdapter.Contract;
 using Lykke.Service.TradesAdapter.Core.IncomingMessages.LimitOrders;
 using Lykke.Service.TradesAdapter.Core.Services;
 

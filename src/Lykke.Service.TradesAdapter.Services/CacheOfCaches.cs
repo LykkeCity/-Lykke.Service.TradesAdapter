@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Lykke.Service.TradesAdapter.AzureRepository.Trades;
 using Lykke.Service.TradesAdapter.Contract;
-using Lykke.Service.TradesAdapter.Core;
 using Lykke.Service.TradesAdapter.Core.Services;
 
 namespace Lykke.Service.TradesAdapter.Services

@@ -51,7 +51,7 @@ namespace Lykke.Service.TradesAdapter.Controllers
                 return BadRequest(ErrorResponse.Create(InvalidSkipMessage));
             }
 
-            if (take < 0)
+            if (take <= 0)
             {
                 return BadRequest(ErrorResponse.Create(InvalidTakeMessage));
             }

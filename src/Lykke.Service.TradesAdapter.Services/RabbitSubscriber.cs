@@ -12,7 +12,7 @@ using Lykke.Service.TradesAdapter.Core.Services;
 namespace Lykke.Service.TradesAdapter.Services
 {
     [UsedImplicitly]
-    public class RabbitSubscriber : IRabbitSubscriber, IDisposable
+    public class RabbitSubscriber : IRabbitSubscriber
     {
         private readonly ConcurrentBag<RabbitSubscription> _subscriptions = new ConcurrentBag<RabbitSubscription>();
         private const string APPLICATION_NAME = "tradesadapter";

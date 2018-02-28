@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Lykke.Service.TradesAdapter.Core.IncomingMessages.Fees;
 
 namespace Lykke.Service.TradesAdapter.Core.IncomingMessages.LimitOrders
 {
@@ -27,7 +25,5 @@ namespace Lykke.Service.TradesAdapter.Core.IncomingMessages.LimitOrders
         public string OppositeClientId { get; set; }
 
         public double OppositeVolume { get; set; }
-
-        public List<Fee> Fees { get; set; }
     }
 }

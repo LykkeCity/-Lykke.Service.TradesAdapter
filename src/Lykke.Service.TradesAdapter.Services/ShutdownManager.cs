@@ -15,9 +15,11 @@ namespace Lykke.Service.TradesAdapter.Services
     {
         private readonly ILog _log;
         private readonly List<IStopable> _items = new List<IStopable>();
+        private readonly IRabbitSubscriber _rabbitSubscriber;
 
-        public ShutdownManager(ILog log)
+        public ShutdownManager(ILog log, IRabbitSubscriber rabbitSubscriber)
         {
+            _rabbitSubscriber = rabbitSubscriber;
             _log = log;
         }
 
@@ -28,6 +30,8 @@ namespace Lykke.Service.TradesAdapter.Services
 
         public async Task StopAsync()
         {
+            _rabbitSubscriber.Dispose();
+            
             // TODO: Implement your shutdown logic here. Good idea is to log every step
             foreach (var item in _items)
             {

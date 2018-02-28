@@ -60,7 +60,7 @@ namespace Lykke.Service.TradesAdapter.Job.RabbitSubscribers
                     return;
                 }
                 
-                await _tradesLogRepository.AddOrMergeMultipleAsync(trades);
+                await _tradesLogRepository.AddIfMissingMultipleAsync(trades);
                 
                 if (DateTime.UtcNow.Subtract(start) > TimeSpan.FromSeconds(10))
                     await _log.WriteWarningAsync(

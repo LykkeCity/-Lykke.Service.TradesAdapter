@@ -26,7 +26,7 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
             _idIndexStorage = idIndexStorage;
         }
         
-        public async Task AddOrMergeMultipleAsync(IEnumerable<ITrade> trades)
+        public async Task AddIfMissingMultipleAsync(IEnumerable<ITrade> trades)
         {
             if (trades == null || !trades.Any())
                 return;

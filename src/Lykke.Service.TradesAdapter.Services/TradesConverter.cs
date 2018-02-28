@@ -27,6 +27,8 @@ namespace Lykke.Service.TradesAdapter.Services
             
             if (orders?.Orders == null || orders.Orders.Count == 0)
                 return result;
+
+            var matchedWithMarketOrder = MatchedWithMarketOrder(orders);
             
             foreach (var order in orders.Orders)
             {
@@ -50,7 +52,7 @@ namespace Lykke.Service.TradesAdapter.Services
 
                     TradeAction action;
 
-                    if (MatchedWithMarketOrder(orders))
+                    if (matchedWithMarketOrder)
                     {
                         action = order.Order.Volume > 0 ? TradeAction.Sell : TradeAction.Buy;
                     }
@@ -80,16 +82,20 @@ namespace Lykke.Service.TradesAdapter.Services
             return result;
         }
         
-        private static bool MatchedWithMarketOrder(LimitOrders order)
+        private static bool MatchedWithMarketOrder(LimitOrders orders)
         {
             var result = false;
             
-            foreach (var subOrder in order.Orders)
+            foreach (var order in orders.Orders)
             {
-                if (subOrder.Trades == null || subOrder.Trades.Count == 0)
+                if (order.Trades == null || order.Trades.Count == 0)
                     continue;
 
-                if (order.Orders.All(x => x.Trades.All(y => y.OppositeOrderId != subOrder.Order.Id)))
+                if (orders.Orders.All(
+                    x =>
+                        x.Trades == null ||
+                        x.Trades.Count == 0 ||
+                        x.Trades.All(y => y.OppositeOrderId != order.Order.Id)))
                     result = true;
             }
 
