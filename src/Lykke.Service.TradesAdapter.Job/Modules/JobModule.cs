@@ -74,11 +74,13 @@ namespace Lykke.Service.TradesAdapter.Job.Modules
                     AzureTableStorage<TradeLogEntity>.Create(
                         _dbSettingsManager.ConnectionString(x => x.DataConnString),
                         TradesLogRepository.TableName,
-                        _log),
+                        _log,
+                        TimeSpan.FromMinutes(3)),
                     AzureTableStorage<AzureIndex>.Create(
                         _dbSettingsManager.ConnectionString(x => x.DataConnString),
                         TradesLogRepository.TableName,
-                        _log
+                        _log,
+                        TimeSpan.FromMinutes(3)
                 )))
                 .As<ITradesLogRepository>()
                 .SingleInstance();
