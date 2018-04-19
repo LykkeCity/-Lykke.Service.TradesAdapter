@@ -20,7 +20,7 @@ namespace Lykke.Service.TradesAdapter.AzureRepository.Trades
                 .TotalMilliseconds
                 .ToString(CultureInfo.InvariantCulture);
             var secondaryOrder = index.HasValue
-                ? string.Format("{0,22:D10}", int.MaxValue - index.Value)
+                ? string.Format("{0:D10}", int.MaxValue - index.Value)
                 : Guid.NewGuid().ToString();
             return string.Format("{0}-{1}", inverseTimeKey, secondaryOrder);
         }
