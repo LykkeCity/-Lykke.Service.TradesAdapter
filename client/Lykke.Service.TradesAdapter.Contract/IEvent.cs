@@ -6,5 +6,6 @@ namespace Lykke.Service.TradesAdapter.Contract
     {
         string Id { set; get; }
         DateTime DateTime { set; get; }
+        int? Index { set; get; }
     }
 }

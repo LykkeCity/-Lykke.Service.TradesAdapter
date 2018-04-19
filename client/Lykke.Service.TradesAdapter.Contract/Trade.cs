@@ -11,6 +11,7 @@ namespace Lykke.Service.TradesAdapter.Contract
         public string Id { set; get; }
         public string AssetPairId { set; get; }
         public DateTime DateTime { set; get; }
+        public int? Index { get; set; }
         public double Volume { set; get; }
         public double Price { set; get; }
         [JsonConverter(typeof(StringEnumConverter))]

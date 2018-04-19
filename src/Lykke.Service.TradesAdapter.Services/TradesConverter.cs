@@ -74,6 +74,7 @@ namespace Lykke.Service.TradesAdapter.Services
                         Price = trade.Price,
                         AssetPairId = assetPair?.Id,
                         Volume = volume.Normalize(baseAsset),
+                        Index = trade.Index,
                         Action = action
                     });
                 }
