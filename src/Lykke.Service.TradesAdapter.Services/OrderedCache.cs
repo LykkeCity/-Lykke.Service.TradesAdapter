@@ -52,6 +52,7 @@ namespace Lykke.Service.TradesAdapter.Services
                     AssetPairId = x.AssetPairId,
                     DateTime = x.DateTime,
                     Price = x.Price,
+                    Index = x.Index,
                     Volume = x.Volume
                 }).ToList();
 
