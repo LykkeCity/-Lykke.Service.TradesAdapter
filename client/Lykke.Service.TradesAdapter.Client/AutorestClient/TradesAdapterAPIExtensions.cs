@@ -15,28 +15,40 @@ namespace Lykke.Service.TradesAdapter.AutorestClient
     /// </summary>
     public static partial class TradesAdapterAPIExtensions
     {
+            /// <summary>
+            /// Returns latest trades based on asset pair
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='assetPairId'>
+            /// ID of asset pair
             /// </param>
             /// <param name='skip'>
+            /// How many items to skip
             /// </param>
             /// <param name='take'>
+            /// How many items to take
             /// </param>
             public static object AssetPairIdByAssetPairIdGet(this ITradesAdapterAPI operations, string assetPairId, int skip, int take)
             {
                 return operations.AssetPairIdByAssetPairIdGetAsync(assetPairId, skip, take).GetAwaiter().GetResult();
             }
 
+            /// <summary>
+            /// Returns latest trades based on asset pair
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='assetPairId'>
+            /// ID of asset pair
             /// </param>
             /// <param name='skip'>
+            /// How many items to skip
             /// </param>
             /// <param name='take'>
+            /// How many items to take
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.

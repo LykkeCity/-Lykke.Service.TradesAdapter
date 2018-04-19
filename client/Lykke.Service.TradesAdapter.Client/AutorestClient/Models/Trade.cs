@@ -23,11 +23,12 @@ namespace Lykke.Service.TradesAdapter.AutorestClient.Models
         /// Initializes a new instance of the Trade class.
         /// </summary>
         /// <param name="action">Possible values include: 'Buy', 'Sell'</param>
-        public Trade(System.DateTime dateTime, double volume, double price, TradeAction action, string id = default(string), string assetPairId = default(string))
+        public Trade(System.DateTime dateTime, double volume, double price, TradeAction action, string id = default(string), string assetPairId = default(string), int? index = default(int?))
         {
             Id = id;
             AssetPairId = assetPairId;
             DateTime = dateTime;
+            Index = index;
             Volume = volume;
             Price = price;
             Action = action;
@@ -53,6 +54,11 @@ namespace Lykke.Service.TradesAdapter.AutorestClient.Models
         /// </summary>
         [JsonProperty(PropertyName = "DateTime")]
         public System.DateTime DateTime { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "Index")]
+        public int? Index { get; set; }
 
         /// <summary>
         /// </summary>
