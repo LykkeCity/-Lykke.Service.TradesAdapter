@@ -52,6 +52,7 @@ namespace Lykke.Service.TradesAdapter.Services
                     AssetPairId = x.AssetPairId,
                     DateTime = x.DateTime,
                     Price = x.Price,
+                    Index = x.Index,
                     Volume = x.Volume
                 }).ToList();
 
@@ -102,7 +103,24 @@ namespace Lykke.Service.TradesAdapter.Services
     {
         public int Compare(T x, T y)
         {
-            return -x.DateTime.CompareTo(y.DateTime);
+            if (x.DateTime != y.DateTime) return -x.DateTime.CompareTo(y.DateTime);
+            
+            if (x.Index.HasValue && y.Index.HasValue)
+            {
+                return -x.Index.Value.CompareTo(y.Index.Value);
+            }
+
+            if (x.Index.HasValue)
+            {
+                return 1;
+            }
+
+            if (y.Index.HasValue)
+            {
+                return -1;
+            }
+
+            return 0;
         }
     }
 }

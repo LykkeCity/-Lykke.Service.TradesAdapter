@@ -34,11 +34,17 @@ namespace Lykke.Service.TradesAdapter.AutorestClient
         JsonSerializerSettings DeserializationSettings { get; }
 
 
+        /// <summary>
+        /// Returns latest trades based on asset pair
+        /// </summary>
         /// <param name='assetPairId'>
+        /// ID of asset pair
         /// </param>
         /// <param name='skip'>
+        /// How many items to skip
         /// </param>
         /// <param name='take'>
+        /// How many items to take
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.

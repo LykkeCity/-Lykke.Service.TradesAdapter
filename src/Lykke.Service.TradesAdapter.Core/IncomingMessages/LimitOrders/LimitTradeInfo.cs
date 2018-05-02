@@ -25,5 +25,7 @@ namespace Lykke.Service.TradesAdapter.Core.IncomingMessages.LimitOrders
         public string OppositeClientId { get; set; }
 
         public double OppositeVolume { get; set; }
+        
+        public int Index { get; set; }
     }
 }
