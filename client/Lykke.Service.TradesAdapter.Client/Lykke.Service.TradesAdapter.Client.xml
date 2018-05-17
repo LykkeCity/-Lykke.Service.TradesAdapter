@@ -24,11 +24,17 @@
             </summary>
         </member>
         <member name="M:Lykke.Service.TradesAdapter.AutorestClient.ITradesAdapterAPI.AssetPairIdByAssetPairIdGetWithHttpMessagesAsync(System.String,System.Int32,System.Int32,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Returns latest trades based on asset pair
+            </summary>
             <param name='assetPairId'>
+            ID of asset pair
             </param>
             <param name='skip'>
+            How many items to skip
             </param>
             <param name='take'>
+            How many items to take
             </param>
             <param name='customHeaders'>
             The headers that will be added to request.
@@ -127,7 +133,7 @@
             Initializes a new instance of the Trade class.
             </summary>
         </member>
-        <member name="M:Lykke.Service.TradesAdapter.AutorestClient.Models.Trade.#ctor(System.DateTime,System.Double,System.Double,Lykke.Service.TradesAdapter.AutorestClient.Models.TradeAction,System.String,System.String)">
+        <member name="M:Lykke.Service.TradesAdapter.AutorestClient.Models.Trade.#ctor(System.DateTime,System.Double,System.Double,Lykke.Service.TradesAdapter.AutorestClient.Models.TradeAction,System.String,System.String,System.Nullable{System.Int32})">
             <summary>
             Initializes a new instance of the Trade class.
             </summary>
@@ -142,6 +148,10 @@
             </summary>
         </member>
         <member name="P:Lykke.Service.TradesAdapter.AutorestClient.Models.Trade.DateTime">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.TradesAdapter.AutorestClient.Models.Trade.Index">
             <summary>
             </summary>
         </member>
@@ -242,11 +252,17 @@
             </summary>
         </member>
         <member name="M:Lykke.Service.TradesAdapter.AutorestClient.TradesAdapterAPI.AssetPairIdByAssetPairIdGetWithHttpMessagesAsync(System.String,System.Int32,System.Int32,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            Returns latest trades based on asset pair
+            </summary>
             <param name='assetPairId'>
+            ID of asset pair
             </param>
             <param name='skip'>
+            How many items to skip
             </param>
             <param name='take'>
+            How many items to take
             </param>
             <param name='customHeaders'>
             Headers that will be added to request.
@@ -296,25 +312,37 @@
             </summary>
         </member>
         <member name="M:Lykke.Service.TradesAdapter.AutorestClient.TradesAdapterAPIExtensions.AssetPairIdByAssetPairIdGet(Lykke.Service.TradesAdapter.AutorestClient.ITradesAdapterAPI,System.String,System.Int32,System.Int32)">
+            <summary>
+            Returns latest trades based on asset pair
+            </summary>
             <param name='operations'>
             The operations group for this extension method.
             </param>
             <param name='assetPairId'>
+            ID of asset pair
             </param>
             <param name='skip'>
+            How many items to skip
             </param>
             <param name='take'>
+            How many items to take
             </param>
         </member>
         <member name="M:Lykke.Service.TradesAdapter.AutorestClient.TradesAdapterAPIExtensions.AssetPairIdByAssetPairIdGetAsync(Lykke.Service.TradesAdapter.AutorestClient.ITradesAdapterAPI,System.String,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Returns latest trades based on asset pair
+            </summary>
             <param name='operations'>
             The operations group for this extension method.
             </param>
             <param name='assetPairId'>
+            ID of asset pair
             </param>
             <param name='skip'>
+            How many items to skip
             </param>
             <param name='take'>
+            How many items to take
             </param>
             <param name='cancellationToken'>
             The cancellation token.
