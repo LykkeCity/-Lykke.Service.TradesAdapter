@@ -306,6 +306,12 @@
             A response object containing the response body and response headers.
             </return>
         </member>
+        <member name="M:Lykke.Service.TradesAdapter.AutorestClient.TradesAdapterAPI.#ctor(System.Uri,System.Net.Http.HttpClient)">
+            <inheritdoc />
+            <summary>
+            Should be used to prevent memory leak in RetryPolicy
+            </summary>
+        </member>
         <member name="T:Lykke.Service.TradesAdapter.AutorestClient.TradesAdapterAPIExtensions">
             <summary>
             Extension methods for TradesAdapterAPI.
