@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Common.Log;
 using Lykke.Service.TradesAdapter.AutorestClient;
@@ -17,9 +18,9 @@ namespace Lykke.Service.TradesAdapter.Client
         public TradesAdapterClient(string serviceUrl, ILog log)
         {
             _log = log;
-            _apiClient = new TradesAdapterAPI(new Uri(serviceUrl));
+            _apiClient = new TradesAdapterAPI(new Uri(serviceUrl), new HttpClient());
         }
-        
+
         private TradesAdapterResponse PrepareResponseMultiple(HttpOperationResponse<object> serviceResponse)
         {
             var error = serviceResponse.Body as ErrorResponse;
@@ -51,7 +52,7 @@ namespace Lykke.Service.TradesAdapter.Client
         {
             var response =
                 await _apiClient.AssetPairIdByAssetPairIdGetWithHttpMessagesAsync(assetPairId, skip, take);
-            
+
             return PrepareResponseMultiple(response);
         }
 
